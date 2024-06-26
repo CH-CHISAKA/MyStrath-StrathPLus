@@ -46,7 +46,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       setState(() {
         if (_currentPage < _bannerImage.length - 1) {
           _currentPage++;
@@ -56,7 +56,7 @@ class _BannerWidgetState extends State<BannerWidget> {
       });
       _pageController.animateToPage(
         _currentPage,
-        duration: const Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 2000),
         curve: Curves.easeInOut,
       );
     });

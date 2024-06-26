@@ -1,4 +1,4 @@
-# view folder 
+# View Folder
 
 This folder conatins screens 
 
@@ -9,3 +9,5 @@ This folder conatins screens
  - Log in 
  - Register screen 
 for the application
+
+The view handle the UI
