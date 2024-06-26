@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class BannerController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  List<String> _bannerImage = [];
+  final List<String> _bannerImage = [];
   final PageController _pageController = PageController();
   late Timer _timer;
   int _currentPage = 0;
@@ -44,9 +44,9 @@ class BannerController extends GetxController {
   Stream<List<String>> getBannerUrls() {
     return _firestore.collection("Banners").snapshots().map((snapshot) {
       _bannerImage.clear();
-      snapshot.docs.forEach((doc) {
+      for (var doc in snapshot.docs) {
         _bannerImage.add(doc['image'] as String);
-      });
+      }
       return _bannerImage;
     });
   }
