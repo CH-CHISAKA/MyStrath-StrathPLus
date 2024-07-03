@@ -71,6 +71,7 @@ flutter:
     - assets/icons/favourite_page/
     - assets/icons/home_page/
     - assets/icons/menu_page/
+    - assets/icons/darktheme_navfooter/
 
 
   # To add custom fonts to your application, add a fonts section here,

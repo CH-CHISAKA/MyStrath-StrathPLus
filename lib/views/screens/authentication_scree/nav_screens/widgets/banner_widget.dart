@@ -65,7 +65,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 25.0, left: 10, right: 10),
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 25,
         height: 370,
@@ -76,24 +76,27 @@ class _BannerWidgetState extends State<BannerWidget> {
               itemCount: _bannerImage.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () =>{},
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          blurRadius: 20,
+                  onTap: () => {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0), 
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 20,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: CachedNetworkImage(
+                          imageUrl: _bannerImage[index],
+                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          fit: BoxFit.cover,
                         ),
-                      ],
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: CachedNetworkImage(
-                        imageUrl: _bannerImage[index],
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -106,7 +109,7 @@ class _BannerWidgetState extends State<BannerWidget> {
               },
             ),
             Positioned(
-              bottom: 16,
+              bottom: 12,
               left: 0,
               right: 0,
               child: Row(
@@ -115,8 +118,8 @@ class _BannerWidgetState extends State<BannerWidget> {
                   _bannerImage.length,
                   (index) {
                     // Define the base size and factor for the active state
-                    double baseSize = 8.0;
-                    double activeSize = 12.0;
+                    double baseSize = 8.5;
+                    double activeSize = 12.5;
 
                     // Calculate the size based on active state
                     double size = _currentPage == index ? activeSize : baseSize;

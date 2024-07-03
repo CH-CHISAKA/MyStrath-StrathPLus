@@ -1,12 +1,9 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mystrath_strathplus/controllers/category_controller.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_scree/main_screen.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/signin_screen.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/signin_screen_business.dart';
 // import 'package:mystrath_strathplus/views/screens/authentication_scree/.gitignoresplash_screen.dart';
 
 void main() async {
@@ -35,10 +32,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyStrath App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
-        useMaterial3: true,
-      ),
+      // theme: lightTheme, // Set light theme here
+      darkTheme: darkTheme, // Set dark theme here
+      themeMode: ThemeMode.dark, // Use system theme mode (light or dark)
       home: const MainScreen(),
       initialBinding: BindingsBuilder(() {
         Get.put<CategoryController>(CategoryController());
@@ -46,3 +42,17 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// Define the dark theme
+final ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  scaffoldBackgroundColor: Colors.black,
+  primaryColor: Colors.black,
+);
+
+// Define the light theme
+final ThemeData lightTheme = ThemeData(
+  brightness: Brightness.light,
+  scaffoldBackgroundColor: Colors.white,
+  primaryColor: Colors.blue,
+);

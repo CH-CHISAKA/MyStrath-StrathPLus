@@ -26,9 +26,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Color(0xFF17203A),
+      backgroundColor: Colors.transparent,
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.grey[700],
+        unselectedItemColor: Colors.grey[300],
         selectedItemColor: const Color.fromARGB(255, 221, 104, 14),
         currentIndex: _pageIndex,
         onTap: (value) {
@@ -39,19 +40,19 @@ class _MainScreenState extends State<MainScreen> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: Image.asset("assets/icons/home.png"),
+            icon: Image.asset("assets/icons/darktheme_navfooter/home.png"),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset("assets/icons/favourite.png", width: 25),
+            icon: Image.asset("assets/icons/darktheme_navfooter/favourite.png", width: 25),
             label: 'Favourite',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset("assets/icons/search.png", width: 25),
+            icon: Image.asset("assets/icons/darktheme_navfooter/search.png", width: 25),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset("assets/icons/menu.png", width: 25),
+            icon: Image.asset("assets/icons/darktheme_navfooter/menu.png", width: 25),
             label: 'Menu',
           ),
           // BottomNavigationBarItem(

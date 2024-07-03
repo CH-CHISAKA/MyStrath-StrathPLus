@@ -80,8 +80,8 @@ class FavouriteEntities extends StatelessWidget {
                         index == 3 ? 'Attendance' :
                         index == 4 ? 'StrathPLus' : 'Strath Map',
                         style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
                         ),
                         textAlign: TextAlign.center,
                       ),
