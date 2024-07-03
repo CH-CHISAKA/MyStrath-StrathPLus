@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class FavouriteEntities extends StatelessWidget {
-  const FavouriteEntities({Key? key});
+class FavouriteEntities extends StatefulWidget {
+  const FavouriteEntities({super.key});
 
+  @override
+  State<FavouriteEntities> createState() => _FavouriteEntitiesState();
+}
+
+class _FavouriteEntitiesState extends State<FavouriteEntities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +19,8 @@ class FavouriteEntities extends StatelessWidget {
             child: Text(
               "My Favourites",
               style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.w600,
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -53,19 +58,27 @@ class FavouriteEntities extends StatelessWidget {
                     assetPath = "assets/icons/favourite_page/Strath Map.png";
                     break;
                   default:
-                    assetPath = ""; // Handle default case if needed
+                    assetPath = ""; // default case if needed
                 }
-                return InkWell(
+                return InkResponse(
                   onTap: () {},
+                  highlightShape: BoxShape.circle,
+                  highlightColor: Colors.grey.withOpacity(0.2),
+                  splashColor: Colors.grey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(2),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(0.0),
+                      Container(
+                        width: 45, // Adjust image width
+                        height: 45, // Adjust image height
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        clipBehavior: Clip.antiAlias,
                         child: Image.asset(
                           assetPath,
-                          width: 80, // Adjust image width as needed
-                          height: 80, // Adjust image height as needed
+                          fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return const Icon(Icons.error); // Placeholder for error handling
                           },
