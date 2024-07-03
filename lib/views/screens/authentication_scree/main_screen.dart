@@ -26,6 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.grey[700],
         selectedItemColor: const Color.fromARGB(255, 221, 104, 14),

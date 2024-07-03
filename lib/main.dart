@@ -1,8 +1,9 @@
-// ignore_for_file: unused_import
-
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mystrath_strathplus/controllers/category_controller.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_scree/main_screen.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_scree/signin_screen.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_scree/signin_screen_business.dart';
@@ -29,17 +30,19 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyStrath App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
         useMaterial3: true,
       ),
-      home:  const MainScreen(), 
+      home: const MainScreen(),
+      initialBinding: BindingsBuilder(() {
+        Get.put<CategoryController>(CategoryController());
+      }),
     );
   }
 }

@@ -6,12 +6,13 @@ import 'package:mystrath_strathplus/models/category_model.dart';
 
 class CategoryController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  RxList<CategoryModel> Categories = <CategoryModel>[].obs;
+  RxList<CategoryModel> categories = <CategoryModel>[].obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
     
+   super.onInit();
     _fetchCategories();
   }
 
@@ -20,7 +21,7 @@ class CategoryController extends GetxController {
     .collection('Categories')
     .snapshots()
     .listen((QuerySnapshot querySnapshot) {
-      Categories.assignAll(
+      categories.assignAll(
         querySnapshot.docs.map((doc){
           final data = doc.data() as Map<String, dynamic>;
           return CategoryModel(
