@@ -45,7 +45,7 @@ class MenuScreenEntitiesState extends State<MenuScreenEntities> {
                 return GridView.builder(
                   itemCount: entitiesList.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 3,
                     childAspectRatio: 1.0, // Adjusted aspect ratio for square cells
                     mainAxisSpacing: 20,
                     crossAxisSpacing: 20,
@@ -54,10 +54,11 @@ class MenuScreenEntitiesState extends State<MenuScreenEntities> {
                     String assetPath = "assets/icons/menu_page/${entitiesList[index]}.png";
                     return InkWell(
                       onTap: () {},
+                      borderRadius: BorderRadius.circular(50),
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
+                          shape: BoxShape.circle,
                           color: const Color(0xFFF5F3FF),
                         ),
                         child: Column(
@@ -78,8 +79,8 @@ class MenuScreenEntitiesState extends State<MenuScreenEntities> {
                             Text(
                               entitiesList[index],
                               style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
                               ),
                               textAlign: TextAlign.center,
                             ),
