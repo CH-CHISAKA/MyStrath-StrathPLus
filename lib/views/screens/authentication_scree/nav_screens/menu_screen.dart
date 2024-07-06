@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/entities/home_screen_entiities.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/entities/menu_screen_entiities.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/widgets/home_header_widget.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _MenuScreenState extends State<MenuScreen> {
         children: [
           HomeHeaderWidget(),
           Expanded(
-            child: HomeScreenEntities(),
+            child: MenuScreenEntities(),
           ),
         ],
       ),

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class HomeScreenEntities extends StatefulWidget {
-  const HomeScreenEntities({super.key});
+class MenuScreenEntities extends StatefulWidget {
+  const MenuScreenEntities({super.key});
 
   @override
-  HomeScreenEntitiesState createState() => HomeScreenEntitiesState();
+  MenuScreenEntitiesState createState() => MenuScreenEntitiesState();
 }
 
-class HomeScreenEntitiesState extends State<HomeScreenEntities> {
+class MenuScreenEntitiesState extends State<MenuScreenEntities> {
   final List<String> entitiesList = [
     'Profile',
     'Fees',
     'Coursework',
     'Library',
     'Attendance',
-    'StrathPlus',
+    'StrathPLus',
     'Strath Map',
     'Strath Connect',
     'Mentoring',
@@ -38,7 +38,7 @@ class HomeScreenEntitiesState extends State<HomeScreenEntities> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
