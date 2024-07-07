@@ -23,7 +23,7 @@ class _ReusableTextWidgetState extends State<ReusableTextWidget> {
           Text(
             widget.title,
             style: GoogleFonts.roboto(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               letterSpacing: 1.2,
             ),
