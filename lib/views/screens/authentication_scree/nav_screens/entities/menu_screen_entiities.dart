@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/entities_implementation/strathplus_entity_implementation.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/widgets/strathplus_header_implementation_widget.dart';
 
 class MenuScreenEntities extends StatefulWidget {
-  const MenuScreenEntities({Key? key}) : super(key: key);
+  const MenuScreenEntities({super.key});
 
   @override
   MenuScreenEntitiesState createState() => MenuScreenEntitiesState();
@@ -24,6 +26,18 @@ class MenuScreenEntitiesState extends State<MenuScreenEntities> {
     'Timetable',
   ];
 
+  void navigateToEntity(String entity) {
+    if (entity == 'StrathPLus') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const StrathPLusImplementation(),
+        ),
+      );
+    }
+    // Add more conditions here if you want to navigate to different screens for other entities
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,8 +52,7 @@ class MenuScreenEntitiesState extends State<MenuScreenEntities> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 2), // Adjusted height here
-          // Wrap GridView.builder with Expanded
+          const SizedBox(height: 2), 
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -54,7 +67,7 @@ class MenuScreenEntitiesState extends State<MenuScreenEntities> {
               itemBuilder: (context, index) {
                 String assetPath = "assets/icons/menu_page/${entitiesList[index]}.png";
                 return InkWell(
-                  onTap: () {},
+                  onTap: () => navigateToEntity(entitiesList[index]),
                   borderRadius: BorderRadius.circular(150),
                   child: Container(
                     padding: const EdgeInsets.all(5),

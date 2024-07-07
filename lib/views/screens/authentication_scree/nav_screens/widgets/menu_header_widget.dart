@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 
-class HomeHeaderWidget extends StatelessWidget {  
-  const HomeHeaderWidget({super.key});
+class MenuHeaderWidget extends StatelessWidget {  
+  const MenuHeaderWidget({super.key});
   
   
   @override

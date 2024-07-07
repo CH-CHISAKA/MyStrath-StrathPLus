@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  bloc_provider:
+    dependency: "direct main"
+    description:
+      name: bloc_provider
+      sha256: f1653ee426db6adcb1bae7e8f10b2f98cd75766f5dc82a86173300a17ace5229
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -49,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  build_context_provider:
+    dependency: "direct main"
+    description:
+      name: build_context_provider
+      sha256: f5ea0a893d8a3d2e1d10bf34e4e8020beb3fefaacad0273ca87d7279ed8f6672
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   cached_network_image:
     dependency: "direct main"
     description:
@@ -153,6 +169,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  curved_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: curved_navigation_bar
+      sha256: bb4ab128fcb6f4a9f0f1f72d227db531818b20218984789777f049fcbf919279
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
+  curved_navigation_bar_with_label:
+    dependency: "direct main"
+    description:
+      name: curved_navigation_bar_with_label
+      sha256: "8535749430690991f55ecf6d5987059048bb3ee00f5779dda2c34eb4199c12dc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.4"
   fake_async:
     dependency: transitive
     description:

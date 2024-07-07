@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ReusableTextWidget extends StatelessWidget {
+class ReusableTextWidget extends StatefulWidget {
   final String title;
   final String subtitle;
 
   const ReusableTextWidget(
       {super.key, required this.title, required this.subtitle});
 
+  @override
+  State<ReusableTextWidget> createState() => _ReusableTextWidgetState();
+}
+
+class _ReusableTextWidgetState extends State<ReusableTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +21,7 @@ class ReusableTextWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            title,
+            widget.title,
             style: GoogleFonts.roboto(
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -24,7 +29,7 @@ class ReusableTextWidget extends StatelessWidget {
             ),
           ),
           Text(
-            subtitle,
+            widget.subtitle,
             style: GoogleFonts.roboto(
               fontSize: 12,
               fontWeight: FontWeight.w500,
