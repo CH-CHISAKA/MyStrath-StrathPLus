@@ -19,7 +19,7 @@ class _FavouriteEntitiesState extends State<FavouriteEntities> {
             child: Text(
               "My Favourites",
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 23,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -27,7 +27,7 @@ class _FavouriteEntitiesState extends State<FavouriteEntities> {
           const SizedBox(height: 5),
           Expanded(
             child: GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 15), // Added padding to grid
+              padding: const EdgeInsets.symmetric(horizontal: 15), 
               shrinkWrap: true,
               itemCount: 6, // Number of static items
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -60,45 +60,48 @@ class _FavouriteEntitiesState extends State<FavouriteEntities> {
                   default:
                     assetPath = ""; // default case if needed
                 }
-                return InkResponse(
-                  onTap: () {},
-                  highlightShape: BoxShape.circle,
-                  highlightColor: Colors.grey.withOpacity(0.2),
-                  splashColor: Colors.grey.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(2),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 45, // Adjust image width
-                        height: 45, // Adjust image height
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
+                return Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: InkResponse(
+                    onTap: () {},
+                    highlightShape: BoxShape.circle,
+                    highlightColor: Colors.grey.withOpacity(0.2),
+                    splashColor: Colors.grey.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(1500),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 45, // Adjust image width
+                          height: 45, // Adjust image height
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.asset(
+                            assetPath,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(Icons.error); // Placeholder for error handling
+                            },
+                          ),
                         ),
-                        clipBehavior: Clip.antiAlias,
-                        child: Image.asset(
-                          assetPath,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.error); // Placeholder for error handling
-                          },
+                        const SizedBox(height: 10),
+                        Text(
+                          // Display static labels corresponding to each image
+                          index == 0 ? 'Profile' :
+                          index == 1 ? 'Fees' :
+                          index == 2 ? 'Coursework' :
+                          index == 3 ? 'Attendance' :
+                          index == 4 ? 'StrathPLus' : 'Strath Map',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        // Display static labels corresponding to each image
-                        index == 0 ? 'Profile' :
-                        index == 1 ? 'Fees' :
-                        index == 2 ? 'Coursework' :
-                        index == 3 ? 'Attendance' :
-                        index == 4 ? 'StrathPLus' : 'Strath Map',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
