@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/product_item_widget.dart';
 
 class RecommendedProductWidget extends StatefulWidget {
-  const RecommendedProductWidget({Key? key});
+
+   const RecommendedProductWidget({super.key});
 
   @override
   State<RecommendedProductWidget> createState() => _RecommendedProductWidgetState();
