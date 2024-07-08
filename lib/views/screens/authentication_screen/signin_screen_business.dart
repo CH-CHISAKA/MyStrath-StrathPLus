@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mystrath_strathplus/controllers/authentication_controller.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/main_screen.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/main_screen.dart';
 
 class SigninScreenBusiness extends StatefulWidget {
   const SigninScreenBusiness({super.key});

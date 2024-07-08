@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/entities/favourite_screen_entities.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/widgets/favourite_header_widget.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/entities/favourite_screen_entities.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/favourite_header_widget.dart';
 
 class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({super.key});

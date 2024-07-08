@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/widgets/product_item_widget.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/product_item_widget.dart';
 
 class RecommendedProductWidget extends StatefulWidget {
   const RecommendedProductWidget({Key? key});

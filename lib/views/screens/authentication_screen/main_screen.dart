@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/favouriite_screen.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/home_screen.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/menu_screen.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/nav_screens/search_screen.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/favouriite_screen.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/home_screen.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/menu_screen.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/search_screen.dart';
 
 
 class MainScreen extends StatefulWidget {

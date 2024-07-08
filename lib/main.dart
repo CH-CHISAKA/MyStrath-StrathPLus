@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mystrath_strathplus/controllers/category_controller.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_scree/main_screen.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/main_screen.dart';
 // import 'package:mystrath_strathplus/views/screens/authentication_scree/.gitignoresplash_screen.dart';
 
 void main() async {
