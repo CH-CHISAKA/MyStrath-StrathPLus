@@ -33,7 +33,9 @@ class _SigninScreenBusinessState extends State<SigninScreenBusiness> {
       /// 
       Future.delayed(Duration.zero, () {
         Navigator.push(context, MaterialPageRoute(builder: (context){
-          return  const MainScreen();
+          return  const MainScreen(
+            title: 'StrathPlus',
+          );
         }));
 
         // Logged in Message

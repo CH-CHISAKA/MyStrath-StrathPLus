@@ -27,7 +27,7 @@ class CategoryController extends GetxController {
           return CategoryModel(
             categoryName: data ['categoryName'], 
             categoryImage: data ['categoryImage']);
-        })
+        }).toList(),
       );
      });
   }

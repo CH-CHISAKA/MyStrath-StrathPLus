@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mystrath_strathplus/controllers/category_controller.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/main_screen.dart';
+import 'package:mystrath_strathplus/views/screens/authentication_screen/signin_screen_business.dart';
 // import 'package:mystrath_strathplus/views/screens/authentication_scree/.gitignoresplash_screen.dart';
 
 void main() async {
@@ -35,11 +36,9 @@ class MyApp extends StatelessWidget {
       // theme: lightTheme, // Set light theme here
       darkTheme: darkTheme, // Set dark theme here
       themeMode: ThemeMode.dark, // Use system theme mode (light or dark)
-      home: const MainScreen(),
-      initialBinding: BindingsBuilder(() {
-        Get.put<CategoryController>(CategoryController());
-      }),
+      home: const MainScreen(title: 'MyStrath App'),
     );
+
   }
 }
 

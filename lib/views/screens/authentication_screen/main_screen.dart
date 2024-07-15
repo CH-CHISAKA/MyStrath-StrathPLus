@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mystrath_strathplus/controllers/category_controller.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/favouriite_screen.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/home_screen.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/menu_screen.dart';
@@ -6,7 +8,7 @@ import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_scre
 
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({super.key, required String title});
 
   
   @override
@@ -22,6 +24,8 @@ class _MainScreenState extends State<MainScreen> {
     const SearchScreen(),
     const MenuScreen(),
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,3 +69,14 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
+// void main() {
+//   runApp(
+//     GetMaterialApp(
+//       home: MainScreen(title: 'StrathPLus',),
+//       initialBinding: BindingsBuilder(() {
+//         Get.put<CategoryController>(CategoryController());
+//       }),
+//     ),
+//   );
+// }
