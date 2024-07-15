@@ -4,7 +4,7 @@ import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_scre
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/header_widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

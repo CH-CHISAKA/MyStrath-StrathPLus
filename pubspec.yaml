@@ -53,6 +53,7 @@ dev_dependencies:
   flutter_native_splash: ^2.4.0
 
   # flutter_native_splash
+  test: any
 flutter_native_splash:
   # Light mode
   color: "#FFFFFF"
