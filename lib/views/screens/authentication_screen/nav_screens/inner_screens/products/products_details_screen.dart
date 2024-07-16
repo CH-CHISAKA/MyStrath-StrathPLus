@@ -174,8 +174,13 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
                   // Handle case where no size is selected
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Please select a size.'),
-                      duration: Duration(seconds: 2),
+                      margin: const EdgeInsets.all(16),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.red, // Changed color
+                      content: Text(widget.productData['sizes'].isEmpty
+                          ? 'No sizes available'
+                          : 'Please select a size'),
+                      duration: const Duration(seconds: 2),
                     ),
                   );
                 }
