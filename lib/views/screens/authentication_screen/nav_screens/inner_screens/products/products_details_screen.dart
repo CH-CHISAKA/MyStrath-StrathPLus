@@ -8,20 +8,46 @@ class ProductsDetialsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Product Details'),
-        backgroundColor: Color(0xff3A5DAE),
-        titleTextStyle: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontFamily: GoogleFonts.poppins().fontFamily,
-          fontWeight: FontWeight.w500,
-          letterSpacing: .7,
-        ),
-      ),
+  final productData = this.productData;
+   final _sizeList = (productData['sizes'] as List?) ?? [];
+
+
+   Size size = MediaQuery.of(context).size;
+
+
+   return SizedBox(
+     height: size.height,
+     width: size.width,
+     child: Scaffold(
+       appBar: AppBar(
+         title: Text(productData['name'] ?? 'Product Detail'),
+         backgroundColor: const Color(0xff3A5DAE),
+         titleTextStyle: GoogleFonts.lato(
+           textStyle: const TextStyle(
+             color: Colors.white,
+             fontSize: 23,
+             fontWeight: FontWeight.w500,
+             letterSpacing: 0.7,
+           ),
+         ),
+         actions: [
+           IconButton(
+             onPressed: () {
+               // Add your favorite logic here
+             },
+             icon: const Icon(
+               Icons.favorite,
+               color: Colors.red,
+             ),
+           ),
+         ],
+       ),
+
       body: const Center(
-        child: Text('Product Details'),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(8.0),
+        )
+      ),
       ),
     );
   }
