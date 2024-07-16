@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mystrath_strathplus/models/cart_model.dart';
-import 'package:mystrath_strathplus/provider/cart_provider.dart';
+import 'package:mystrath_strathplus/provider/cart_provider.dart' as cp; // Alias the cart_provider import
+import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/cart_screen.dart';
 
 class ProductsDetailsScreen extends ConsumerStatefulWidget {
   final dynamic productData;
@@ -17,12 +18,11 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
   List<dynamic> productImages = [];
   List<dynamic> sizeList = [];
   String productImage = '';
-  String selectedSize = ''; // Updated to store single selected size
+  String selectedSize = '';
 
   @override
   void initState() {
     super.initState();
-    // Initialize productImages, sizeList, and productImage from widget.productData
     productImages = widget.productData['productImage'] ?? [];
     sizeList = widget.productData['sizes'] as List<dynamic>? ?? [];
     productImage = productImages.isNotEmpty ? productImages[0] : '';
@@ -31,16 +31,16 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
   void toggleSizeSelection(String size) {
     setState(() {
       if (selectedSize == size) {
-        selectedSize = ''; // Deselect size if already selected
+        selectedSize = '';
       } else {
-        selectedSize = size; // Select size if not selected
+        selectedSize = size;
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final cartNotifier = ref.read(cartProvider.notifier);
+    final cartNotifier = ref.read(cp.cartProvider.notifier); // Use aliased import here
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -68,11 +68,10 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Product Image
             Container(
               height: 300,
               decoration: BoxDecoration(
@@ -83,8 +82,7 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 30),
-            // Prices and Discount (if available)
+            const SizedBox(height: 33),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -93,27 +91,26 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
                   style: TextStyle(
                     fontSize: 15,
                     color: widget.productData['discount'] != null && widget.productData['discount'] > 0
-                        ? Colors.red // Price color becomes red if discount exists
-                        : Colors.white, // Default color when no discount
-                    fontWeight: FontWeight.w400, // Reduced font weight for price
+                        ? Colors.red
+                        : Colors.white,
+                    fontWeight: FontWeight.w400,
                     decoration: widget.productData['discount'] != null && widget.productData['discount'] > 0
-                        ? TextDecoration.lineThrough // Apply line through if discount exists
+                        ? TextDecoration.lineThrough
                         : null,
                   ),
                 ),
                 if (widget.productData['discount'] != null && widget.productData['discount'] > 0)
                   Text(
                     'Discounted Price: KES ${widget.productData['discount']}',
-                    style: TextStyle(
-                      fontSize: 15, // Increased font size for discounted price
-                      fontWeight: FontWeight.bold, // Increased font weight for discounted price
-                      color: Colors.white, // Always white color for discounted price
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
               ],
             ),
-            const SizedBox(height: 25),
-            // Sizes
+            const SizedBox(height: 35),
             if (sizeList.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,60 +129,62 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
                         },
                         child: Chip(
                           label: Text(size.toString()),
-                          backgroundColor:
-                              selectedSize == size.toString()
-                                  ? const Color(0xFF7C9EED)
-                                  : const Color(0xFFD9D9D9),
+                          backgroundColor: selectedSize == size.toString()
+                              ? const Color(0xFF7C9EED)
+                              : const Color(0xFFD9D9D9),
                         ),
                       );
                     }).toList(),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                 ],
               ),
-            // Description
             Text(
               widget.productData['description'] ?? '',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 25),
-            // Add to Cart Button
+            const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
                 if (selectedSize.isNotEmpty) {
-                  // Create a CartModel instance from productData and selectedSize
                   final cartModel = CartModel(
                     name: widget.productData['name'],
-                    price: (widget.productData['price'] as double).toDouble(),
+                    price: (widget.productData['price'] as num?)?.toDouble() ?? 0.0,
                     quantity: 1.0,
-                    instock: (widget.productData['instock'] as double).toDouble(),
-                    total: (widget.productData['price'] as double).toDouble(),
-                    imageURL: widget.productData['productImage'][0],
-                    productId: widget.productData['productId'],
-                    sizes: [selectedSize], // Store selected size as list
-                    category: widget.productData['category'],
-                    discount: (widget.productData['discount'] as double?)?.toDouble(),
-                    description: widget.productData['description'],
+                    instock: (widget.productData['instock'] as num?)?.toDouble() ?? 0.0,
+                    total: (widget.productData['price'] as num?)?.toDouble() ?? 0.0,
+                    imageURL: widget.productData['productImage'][0] ?? '',
+                    productId: widget.productData['productId'] ?? '',
+                    sizes: [selectedSize],
+                    category: widget.productData['category'] ?? '',
+                    discount: (widget.productData['discount'] as num?)?.toDouble(),
+                    description: widget.productData['description'] ?? '',
                   );
 
-                  // Implement add to cart functionality
                   cartNotifier.addCart(cartModel, [selectedSize]);
+
+                  // Navigate to CartScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CartScreen(),
+                    ),
+                  );
                 } else {
-                  // Handle case where no size is selected
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       margin: const EdgeInsets.all(16),
                       behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.red, // Changed color
+                      backgroundColor: Colors.red,
                       content: Text(widget.productData['sizes'].isEmpty
                           ? 'No sizes available'
-                          : 'Please select a size'),
+                          : 'Please select a quantity'),
                       duration: const Duration(seconds: 2),
                     ),
                   );
                 }
               },
-              child: Text('Add to Cart'),
+              child: const Text('Add to Cart'),
             ),
           ],
         ),
