@@ -136,8 +136,8 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                 ],
               ),
               Positioned( // Positioned to place the favorite icon
-                top: 8,
-                right: 14,
+                top: 3,
+                right: 17,
                 child: GestureDetector(
                   onTap: toggleFavourite,
                   child: Container(
