@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProductsDetialsScreen extends StatelessWidget {
+class ProductsDetialsScreen extends StatefulWidget {
   final dynamic productData;
 
-   ProductsDetialsScreen({super.key, required this.productData});
+  ProductsDetialsScreen({Key? key, required this.productData}) : super(key: key);
+
+  @override
+  _ProductsDetialsScreenState createState() => _ProductsDetialsScreenState();
+}
+
+class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
+  List<dynamic> productImages = [];
+  List<dynamic> sizeList = [];
+  String productImage = '';
+  String selectedSize = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize productImages, sizeList, and productImage from widget.productData
+    productImages = widget.productData['productImage'] ?? [];
+    sizeList = widget.productData['sizes'] as List<dynamic>? ?? [];
+    productImage = productImages.isNotEmpty ? productImages[0] : '';
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> productImages = productData['productImage'];
-    final List<dynamic> sizeList = (productData['sizes'] as List<dynamic>?) ?? [];
-    String productImage = productImages.isNotEmpty ? productImages[0] : '';
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(productData['name'] ?? 'Product Detail'),
+        title: Text(widget.productData['name'] ?? 'Product Detail'),
         backgroundColor: const Color(0xff3A5DAE),
         titleTextStyle: GoogleFonts.lato(
           textStyle: const TextStyle(
@@ -47,25 +63,27 @@ class ProductsDetialsScreen extends StatelessWidget {
               height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(productImage), // Use the first image in productImages
+                  image: NetworkImage(productImage),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 25),
             // Prices and Discount (if available)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Price: \$${productData['price']}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.lineThrough,
+                  'Price: \$${widget.productData['price']}',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.lineThrough,
                   ),
                 ),
-                if (productData['discount'] != null)
+                if (widget.productData['discount'] != null)
                   Text(
-                    'Discounted Price: \$${productData['discount']}',
+                    'Discounted Price: \$${widget.productData['discount']}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -88,9 +106,17 @@ class ProductsDetialsScreen extends StatelessWidget {
                   Wrap(
                     spacing: 10,
                     children: sizeList.map<Widget>((size) {
-                      return Chip(
-                        label: Text(size.toString()),
-                        backgroundColor: Colors.grey[300],
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedSize = size.toString();
+                          });
+                        },
+                        child: Chip(
+                          label: Text(size.toString()),
+                          backgroundColor:
+                              size.toString() == selectedSize ? Color(0xff3A5DAE) : Colors.grey[300],
+                        ),
                       );
                     }).toList(),
                   ),
@@ -99,7 +125,7 @@ class ProductsDetialsScreen extends StatelessWidget {
               ),
             // Description
             Text(
-              productData['description'] ?? '',
+              widget.productData['description'] ?? '',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 25),
