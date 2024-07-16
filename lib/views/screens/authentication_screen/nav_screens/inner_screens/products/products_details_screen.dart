@@ -91,21 +91,23 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
                 Text(
                   'Price: KES ${widget.productData['price']}',
                   style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white, // Change to white when no discount
-                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: widget.productData['discount'] != null && widget.productData['discount'] > 0
+                        ? Colors.red // Price color becomes red if discount exists
+                        : Colors.white, // Default color when no discount
+                    fontWeight: FontWeight.w400, // Reduced font weight for price
                     decoration: widget.productData['discount'] != null && widget.productData['discount'] > 0
-                        ? TextDecoration.lineThrough
-                        : null, // Apply line through if discount exists
+                        ? TextDecoration.lineThrough // Apply line through if discount exists
+                        : null,
                   ),
                 ),
                 if (widget.productData['discount'] != null && widget.productData['discount'] > 0)
                   Text(
                     'Discounted Price: KES ${widget.productData['discount']}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                    style: TextStyle(
+                      fontSize: 15, // Increased font size for discounted price
+                      fontWeight: FontWeight.bold, // Increased font weight for discounted price
+                      color: Colors.white, // Always white color for discounted price
                     ),
                   ),
               ],

@@ -26,7 +26,6 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
     setState(() {
       isFavourite = !isFavourite;
     });
-    // Vibrate device
     _vibrate();
   }
 
@@ -49,127 +48,122 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
     Size size = MediaQuery.of(context).size;
 
     List<dynamic> productImages = widget.productData['productImage'];
-    String productImage = productImages.isNotEmpty ? productImages[0] : ''; // Get the first image
+    String productImage = productImages.isNotEmpty ? productImages[0] : '';
     String name = widget.productData['name'];
     num priceInUSD = widget.productData['price'];
     num discount = widget.productData['discount'] ?? 0;
-    num discountedPrice = priceInUSD - discount;
     bool hasDiscount = discount > 0;
 
-    return SizedBox(
-      height: size.height,
-      width: size.width,
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductsDetailsScreen(
-                productData: widget.productData.data()! as Map<String, dynamic>,
-              ),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductsDetailsScreen(
+              productData: widget.productData.data()! as Map<String, dynamic>,
             ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(17.0),
-          child: Container(
-            width: 140,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: 130,
-                      width: 140,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.network(
-                          productImage,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            } else {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFA400)),
-                                ),
-                              );
-                            }
-                          },
-                          errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                            return Center(child: Icon(Icons.error));
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      name,
-                      style: GoogleFonts.lato(
-                        fontSize: 16,
-                        color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    if (hasDiscount)
-                      Text(
-                        'KES ${priceInUSD.toStringAsFixed(0)}',
-                        style: GoogleFonts.lato(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
-                    SizedBox(height: 2),
-                    Text(
-                      'KES ${discountedPrice.toStringAsFixed(0)}',
-                      style: GoogleFonts.lato(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                  ],
-                ),
-                Positioned(
-                  top: 8,
-                  left: 100,
-                  child: GestureDetector(
-                    onTap: toggleFavourite,
-                    child: Container(
-                      width: 27,
-                      height: 27,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 214, 13, 34),
-                        borderRadius: BorderRadius.circular(14),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x33FF20000),
-                            spreadRadius: 0,
-                            offset: Offset(0.0, 7.0),
-                            blurRadius: 15.0,
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        isFavourite ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.white,
-                        size: 16,
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0), // Maintain some padding around the item
+        child: Container(
+          width: 160,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), // Adjusted borderRadius
+          ),
+          child: Stack( // Use a Stack to allow positioning
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 110, // Reduced height for the image
+                    width: 140,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(70), // Make it large to ensure a circle
+                      child: Image.network(
+                        productImage,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFA400)),
+                              ),
+                            );
+                          }
+                        },
+                        errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                          return Center(child: Icon(Icons.error));
+                        },
                       ),
                     ),
                   ),
+                  SizedBox(height: 4), // Reduced spacing between elements
+                  Text(
+                    name,
+                    style: GoogleFonts.lato(
+                      fontSize: 16,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 4), // Reduced spacing between elements
+                  if (hasDiscount)
+                    Text(
+                      'KES ${priceInUSD.toStringAsFixed(0)}',
+                      style: GoogleFonts.lato(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    )
+                  else
+                    Text(
+                      'KES ${priceInUSD.toStringAsFixed(0)}',
+                      style: GoogleFonts.lato(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  SizedBox(height: 2),
+                ],
+              ),
+              Positioned( // Positioned to place the favorite icon
+                top: 8,
+                right: 14,
+                child: GestureDetector(
+                  onTap: toggleFavourite,
+                  child: Container(
+                    width: 27,
+                    height: 27,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 214, 13, 34),
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x33FF20000),
+                          spreadRadius: 0,
+                          offset: Offset(0.0, 7.0),
+                          blurRadius: 15.0,
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      isFavourite ? Icons.favorite : Icons.favorite_border,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
