@@ -48,7 +48,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
     Size size = MediaQuery.of(context).size;
 
     List<dynamic> productImages = widget.productData['productImage'];
-    String productImage = productImages.isNotEmpty ? productImages[0] : ''; // Use the first image or a placeholder
+    String productImage = productImages.isNotEmpty ? productImages[0] : ''; // Get the first image
     String name = widget.productData['name'];
     String price = widget.productData['price'].toString();
 
