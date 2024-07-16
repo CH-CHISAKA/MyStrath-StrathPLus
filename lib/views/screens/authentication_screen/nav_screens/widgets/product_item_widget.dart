@@ -41,6 +41,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
     print('productImage: ${widget.productData['productImage']}');
     print('name: ${widget.productData['name']}');
     print('price: ${widget.productData['price']}');
+    print('discount: ${widget.productData['discount']}');
   }
 
   @override
@@ -50,36 +51,31 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
     List<dynamic> productImages = widget.productData['productImage'];
     String productImage = productImages.isNotEmpty ? productImages[0] : ''; // Get the first image
     String name = widget.productData['name'];
-    String price = widget.productData['price'].toString();
+    num priceInUSD = widget.productData['price'];
+    num discount = widget.productData['discount'] ?? 0;
+    num discountedPrice = priceInUSD - discount;
+    bool hasDiscount = discount > 0;
 
     return SizedBox(
       height: size.height,
       width: size.width,
       child: InkWell(
-       onTap: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => ProductsDetailsScreen(
-        productData: widget.productData.data()! as Map<String, dynamic>,
-      ),
-    ),
-  );
-},
-
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductsDetailsScreen(
+                productData: widget.productData.data()! as Map<String, dynamic>,
+              ),
+            ),
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(17.0),
           child: Container(
             width: 140,
             decoration: BoxDecoration(
-              // color: const Color(0xFFB7C9F2),
               borderRadius: BorderRadius.circular(100),
-              boxShadow: const [
-                // BoxShadow(
-                //   color: Color.fromARGB(255, 219, 219, 219),
-                //   offset: Offset(0.0, 1.0),
-                //   blurRadius: 2.0),
-              ],
             ),
             child: Stack(
               children: [
@@ -99,7 +95,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                             if (loadingProgress == null) {
                               return child;
                             } else {
-                              return const Center(
+                              return Center(
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFA400)),
                                 ),
@@ -107,12 +103,12 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                             }
                           },
                           errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                            return const Center(child: Icon(Icons.error));
+                            return Center(child: Icon(Icons.error));
                           },
                         ),
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                     Text(
                       name,
                       style: GoogleFonts.lato(
@@ -121,17 +117,27 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
+                    if (hasDiscount)
+                      Text(
+                        'KES ${priceInUSD.toStringAsFixed(0)}',
+                        style: GoogleFonts.lato(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                    SizedBox(height: 2),
                     Text(
-                      '\$$price',
+                      'KES ${discountedPrice.toStringAsFixed(0)}',
                       style: GoogleFonts.lato(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        decoration: TextDecoration.lineThrough,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                   ],
                 ),
                 Positioned(

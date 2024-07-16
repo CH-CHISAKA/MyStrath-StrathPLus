@@ -102,7 +102,7 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
                 if (widget.productData['discount'] != null && widget.productData['discount'] > 0)
                   Text(
                     'Discounted Price: KES ${widget.productData['discount']}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
