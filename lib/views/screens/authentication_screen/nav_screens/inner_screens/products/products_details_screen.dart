@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductsDetialsScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
   List<dynamic> productImages = [];
   List<dynamic> sizeList = [];
   String productImage = '';
-  String selectedSize = '';
+  List<String> selectedSizes = [];
 
   @override
   void initState() {
@@ -23,6 +24,16 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
     productImages = widget.productData['productImage'] ?? [];
     sizeList = widget.productData['sizes'] as List<dynamic>? ?? [];
     productImage = productImages.isNotEmpty ? productImages[0] : '';
+  }
+
+  void toggleSizeSelection(String size) {
+    setState(() {
+      if (selectedSizes.contains(size)) {
+        selectedSizes.remove(size); // Deselect size if already selected
+      } else {
+        selectedSizes.add(size); // Select size if not selected
+      }
+    });
   }
 
   @override
@@ -68,7 +79,7 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 25),
+            SizedBox(height: 20),
             // Prices and Discount (if available)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +89,7 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.lineThrough,
+                    decoration:TextDecoration.lineThrough,
                   ),
                 ),
                 if (widget.productData['discount'] != null)
@@ -108,14 +119,13 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
                     children: sizeList.map<Widget>((size) {
                       return GestureDetector(
                         onTap: () {
-                          setState(() {
-                            selectedSize = size.toString();
-                          });
+                          toggleSizeSelection(size.toString());
                         },
                         child: Chip(
                           label: Text(size.toString()),
-                          backgroundColor:
-                              size.toString() == selectedSize ? Color(0xff3A5DAE) : Colors.grey[300],
+                          backgroundColor: selectedSizes.contains(size.toString())
+                              ? Color(0xFF7C9EED)
+                              : Color(0xFFD9D9D9),
                         ),
                       );
                     }).toList(),
