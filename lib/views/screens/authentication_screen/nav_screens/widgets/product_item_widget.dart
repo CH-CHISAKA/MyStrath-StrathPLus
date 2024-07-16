@@ -60,7 +60,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => ProductsDetialsScreen(
+      builder: (context) => ProductsDetailsScreen(
         productData: widget.productData.data()! as Map<String, dynamic>,
       ),
     ),

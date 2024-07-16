@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mystrath_strathplus/models/cart_model.dart';
+import 'package:mystrath_strathplus/provider/cart_provider.dart';
 
-class ProductsDetialsScreen extends StatefulWidget {
+class ProductsDetailsScreen extends ConsumerStatefulWidget {
   final dynamic productData;
 
-  ProductsDetialsScreen({Key? key, required this.productData}) : super(key: key);
+  const ProductsDetailsScreen({Key? key, required this.productData}) : super(key: key);
 
   @override
-  _ProductsDetialsScreenState createState() => _ProductsDetialsScreenState();
+  _ProductsDetailsScreenState createState() => _ProductsDetailsScreenState();
 }
 
-class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
+class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
   List<dynamic> productImages = [];
   List<dynamic> sizeList = [];
   String productImage = '';
@@ -38,6 +40,7 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartNotifier = ref.read(cartProvider.notifier);
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -73,47 +76,51 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
             Container(
               height: 300,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
                   image: NetworkImage(productImage),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             // Prices and Discount (if available)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Price: \$${widget.productData['price']}',
+                  'Price: KES ${widget.productData['price']}',
                   style: TextStyle(
                     fontSize: 18,
+                    color: Colors.white, // Change to white when no discount
                     fontWeight: FontWeight.bold,
-                    decoration:TextDecoration.lineThrough,
+                    decoration: widget.productData['discount'] != null && widget.productData['discount'] > 0
+                        ? TextDecoration.lineThrough
+                        : null, // Apply line through if discount exists
                   ),
                 ),
-                if (widget.productData['discount'] != null)
+                if (widget.productData['discount'] != null && widget.productData['discount'] > 0)
                   Text(
-                    'Discounted Price: \$${widget.productData['discount']}',
+                    'Discounted Price: KES ${widget.productData['discount']}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red,
+                      color: Colors.white,
                     ),
                   ),
               ],
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             // Sizes
             if (sizeList.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Available Sizes:',
+                  const Text(
+                    'Available Quantities:',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Wrap(
                     spacing: 10,
                     children: sizeList.map<Widget>((size) {
@@ -123,9 +130,10 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
                         },
                         child: Chip(
                           label: Text(size.toString()),
-                          backgroundColor: selectedSizes.contains(size.toString())
-                              ? Color(0xFF7C9EED)
-                              : Color(0xFFD9D9D9),
+                          backgroundColor:
+                              selectedSizes.contains(size.toString())
+                                  ? const Color(0xFF7C9EED)
+                                  : const Color(0xFFD9D9D9),
                         ),
                       );
                     }).toList(),
@@ -142,7 +150,23 @@ class _ProductsDetialsScreenState extends State<ProductsDetialsScreen> {
             // Add to Cart Button
             ElevatedButton(
               onPressed: () {
+                // Create a CartModel instance from productData and selectedSizes
+                final cartModel = CartModel(
+                  name: widget.productData['name'],
+                  price: (widget.productData['price'] as double).toDouble(),
+                  quantity: 1.0,
+                  instock: (widget.productData['instock'] as double).toDouble(),
+                  total: (widget.productData['price'] as double).toDouble(),
+                  imageURL: widget.productData['productImage'][0],
+                  productId: widget.productData['productId'],
+                  sizes: selectedSizes,
+                  category: widget.productData['category'],
+                  discount: (widget.productData['discount'] as double?)?.toDouble(),
+                  description: widget.productData['description'],
+                );
+
                 // Implement add to cart functionality
+                cartNotifier.addCart(cartModel, selectedSizes);
               },
               child: Text('Add to Cart'),
             ),
