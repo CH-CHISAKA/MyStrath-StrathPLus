@@ -17,7 +17,7 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
   List<dynamic> productImages = [];
   List<dynamic> sizeList = [];
   String productImage = '';
-  List<String> selectedSizes = [];
+  String selectedSize = ''; // Updated to store single selected size
 
   @override
   void initState() {
@@ -30,10 +30,10 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
 
   void toggleSizeSelection(String size) {
     setState(() {
-      if (selectedSizes.contains(size)) {
-        selectedSizes.remove(size); // Deselect size if already selected
+      if (selectedSize == size) {
+        selectedSize = ''; // Deselect size if already selected
       } else {
-        selectedSizes.add(size); // Select size if not selected
+        selectedSize = size; // Select size if not selected
       }
     });
   }
@@ -131,7 +131,7 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
                         child: Chip(
                           label: Text(size.toString()),
                           backgroundColor:
-                              selectedSizes.contains(size.toString())
+                              selectedSize == size.toString()
                                   ? const Color(0xFF7C9EED)
                                   : const Color(0xFFD9D9D9),
                         ),
@@ -150,23 +150,33 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
             // Add to Cart Button
             ElevatedButton(
               onPressed: () {
-                // Create a CartModel instance from productData and selectedSizes
-                final cartModel = CartModel(
-                  name: widget.productData['name'],
-                  price: (widget.productData['price'] as double).toDouble(),
-                  quantity: 1.0,
-                  instock: (widget.productData['instock'] as double).toDouble(),
-                  total: (widget.productData['price'] as double).toDouble(),
-                  imageURL: widget.productData['productImage'][0],
-                  productId: widget.productData['productId'],
-                  sizes: selectedSizes,
-                  category: widget.productData['category'],
-                  discount: (widget.productData['discount'] as double?)?.toDouble(),
-                  description: widget.productData['description'],
-                );
+                if (selectedSize.isNotEmpty) {
+                  // Create a CartModel instance from productData and selectedSize
+                  final cartModel = CartModel(
+                    name: widget.productData['name'],
+                    price: (widget.productData['price'] as double).toDouble(),
+                    quantity: 1.0,
+                    instock: (widget.productData['instock'] as double).toDouble(),
+                    total: (widget.productData['price'] as double).toDouble(),
+                    imageURL: widget.productData['productImage'][0],
+                    productId: widget.productData['productId'],
+                    sizes: [selectedSize], // Store selected size as list
+                    category: widget.productData['category'],
+                    discount: (widget.productData['discount'] as double?)?.toDouble(),
+                    description: widget.productData['description'],
+                  );
 
-                // Implement add to cart functionality
-                cartNotifier.addCart(cartModel, selectedSizes);
+                  // Implement add to cart functionality
+                  cartNotifier.addCart(cartModel, [selectedSize]);
+                } else {
+                  // Handle case where no size is selected
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Please select a size.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
               },
               child: Text('Add to Cart'),
             ),
