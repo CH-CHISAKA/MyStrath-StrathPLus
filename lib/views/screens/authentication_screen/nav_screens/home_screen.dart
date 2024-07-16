@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/entities/home_screen_entiities.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/banner_widget.dart';
-import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/category_item.dart';
+// import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/category_item.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/header_widget.dart';
 
 class HomeScreen extends StatelessWidget {

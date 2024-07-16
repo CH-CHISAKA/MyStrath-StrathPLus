@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mystrath_strathplus/controllers/category_controller.dart';
+// import 'package:get/get.dart';
+// import 'package:mystrath_strathplus/controllers/category_controller.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/favouriite_screen.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/home_screen.dart';
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/menu_screen.dart';

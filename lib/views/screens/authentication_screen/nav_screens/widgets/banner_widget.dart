@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +43,7 @@ class _BannerWidgetState extends State<BannerWidget> {
       });
     } catch (e) {
       // Handle errors if necessary
-      print(e);
+      // print(e);
     }
   }
 

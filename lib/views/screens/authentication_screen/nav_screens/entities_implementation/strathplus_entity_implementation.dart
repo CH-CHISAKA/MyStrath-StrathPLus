@@ -14,7 +14,7 @@ class StrathPLusImplementation extends StatefulWidget {
 class _StrathPLusImplementationState extends State<StrathPLusImplementation> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  const Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -23,7 +23,7 @@ class _StrathPLusImplementationState extends State<StrathPLusImplementation> {
             CategoryItem(
               title: "Resturants",
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 20),
             ReusableTextWidget(
               title: "Recommended Products",
               subtitle: "View all",

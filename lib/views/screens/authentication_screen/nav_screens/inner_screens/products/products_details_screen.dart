@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProductsDetialScreen extends StatelessWidget {
-  const ProductsDetialScreen({super.key, required this.productData});
+class ProductsDetialsScreen extends StatelessWidget {
+  const ProductsDetialsScreen({super.key, required this.productData});
 
   final dynamic productData;
 
