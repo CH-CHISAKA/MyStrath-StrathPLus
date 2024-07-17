@@ -25,14 +25,13 @@ class _SigninScreenState extends State<SigninScreen> {
         // Attempt to register the new user
         await _authController.registerNewUser(id, password);
         // Show success message or navigate to another screen
-        print('Registration successful');
       } catch (e) {
         // Handle registration error
-        print('Registration failed: $e');
+        // print('Registration failed: $e');
       }
     } else {
       // If any field is invalid, print a failure message
-      print('Login Failed. Check Your Admission Number or Password');
+      // print('Login Failed. Check Your Admission Number or Password');
     }
   }
 

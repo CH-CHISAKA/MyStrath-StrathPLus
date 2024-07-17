@@ -7,7 +7,7 @@ import 'package:vibration/vibration.dart';
 class ProductItemWidget extends StatefulWidget {
   final QueryDocumentSnapshot<Object?> productData;
 
-  const ProductItemWidget({Key? key, required this.productData}) : super(key: key);
+  const ProductItemWidget({super.key, required this.productData});
 
   @override
   State<ProductItemWidget> createState() => _ProductItemWidgetState();
@@ -90,7 +90,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                           if (loadingProgress == null) {
                             return child;
                           } else {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFA400)),
                               ),
@@ -98,12 +98,12 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                           }
                         },
                         errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                          return Center(child: Icon(Icons.error));
+                          return const Center(child: Icon(Icons.error));
                         },
                       ),
                     ),
                   ),
-                  SizedBox(height: 4), // Reduced spacing between elements
+                  const SizedBox(height: 4), // Reduced spacing between elements
                   Text(
                     name,
                     style: GoogleFonts.lato(
@@ -112,7 +112,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4), // Reduced spacing between elements
+                  const SizedBox(height: 4), // Reduced spacing between elements
                   if (hasDiscount)
                     Text(
                       'KES ${priceInUSD.toStringAsFixed(0)}',
@@ -132,7 +132,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                         color: Colors.white,
                       ),
                     ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                 ],
               ),
               Positioned( // Positioned to place the favorite icon
@@ -148,7 +148,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                       borderRadius: BorderRadius.circular(14),
                       boxShadow: const [
                         BoxShadow(
-                          color: Color(0x33FF20000),
+                          color: Color(0x33ff20000),
                           spreadRadius: 0,
                           offset: Offset(0.0, 7.0),
                           blurRadius: 15.0,

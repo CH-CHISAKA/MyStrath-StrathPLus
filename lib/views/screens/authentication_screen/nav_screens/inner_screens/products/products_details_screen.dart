@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mystrath_strathplus/models/cart_model.dart';
 import 'package:mystrath_strathplus/provider/cart_provider.dart' as cp; // Alias the cart_provider import
 import 'package:mystrath_strathplus/views/screens/authentication_screen/nav_screens/widgets/cart_screen.dart';
 
 class ProductsDetailsScreen extends ConsumerStatefulWidget {
   final dynamic productData;
 
-  const ProductsDetailsScreen({Key? key, required this.productData}) : super(key: key);
+  const ProductsDetailsScreen({super.key, required this.productData});
 
   @override
   _ProductsDetailsScreenState createState() => _ProductsDetailsScreenState();
@@ -147,21 +146,13 @@ class _ProductsDetailsScreenState extends ConsumerState<ProductsDetailsScreen> {
             ElevatedButton(
               onPressed: () {
                 if (selectedSize.isNotEmpty) {
-                  final cartModel = CartModel(
+                  final cartItem = CartItem(
                     name: widget.productData['name'],
                     price: (widget.productData['price'] as num?)?.toDouble() ?? 0.0,
-                    quantity: 1.0,
-                    instock: (widget.productData['instock'] as num?)?.toDouble() ?? 0.0,
-                    total: (widget.productData['price'] as num?)?.toDouble() ?? 0.0,
-                    imageURL: widget.productData['productImage'][0] ?? '',
-                    productId: widget.productData['productId'] ?? '',
-                    sizes: [selectedSize],
-                    category: widget.productData['category'] ?? '',
-                    discount: (widget.productData['discount'] as num?)?.toDouble(),
-                    description: widget.productData['description'] ?? '',
+                    quantity: 1,
                   );
 
-                  cartNotifier.addCart(cartModel, [selectedSize]);
+                  cartNotifier.addToCart(cartItem.name, cartItem.price);
 
                   // Navigate to CartScreen
                   Navigator.push(

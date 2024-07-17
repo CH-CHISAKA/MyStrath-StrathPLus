@@ -1,52 +1,55 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mystrath_strathplus/models/cart_model.dart';
 
-class CartNotifier extends StateNotifier<Map<String, CartModel>> {
+class CartItem {
+  final String name;
+  final double price;
+  int quantity;
+
+  CartItem({
+    required this.name,
+    required this.price,
+    required this.quantity,
+  });
+
+  CartItem copyWith({
+    String? name,
+    double? price,
+    int? quantity,
+  }) {
+    return CartItem(
+      name: name ?? this.name,
+      price: price ?? this.price,
+      quantity: quantity ?? this.quantity,
+    );
+  }
+}
+
+class CartNotifier extends StateNotifier<Map<String, CartItem>> {
   CartNotifier() : super({});
 
-  void addCart(CartModel cartModel, List<String> sizes) {
-    if (state.containsKey(cartModel.productId)) {
+  void addToCart(String name, double price) {
+    if (state.containsKey(name)) {
       state = {
         ...state,
-        cartModel.productId: state[cartModel.productId]!.copyWith(
-          quantity: state[cartModel.productId]!.quantity + 1,
-          total: state[cartModel.productId]!.total + cartModel.price,
-        ),
+        name: state[name]!.copyWith(quantity: state[name]!.quantity + 1),
       };
     } else {
       state = {
         ...state,
-        cartModel.productId: cartModel.copyWith(quantity: 1, total: cartModel.price),
+        name: CartItem(name: name, price: price, quantity: 1),
       };
     }
   }
 
-  void removeCart(String productId) {
-    if (state.containsKey(productId)) {
-      final currentQuantity = state[productId]!.quantity;
-      if (currentQuantity > 1) {
-        state = {
-          ...state,
-          productId: state[productId]!.copyWith(
-            quantity: currentQuantity - 1,
-            total: state[productId]!.total - state[productId]!.price,
-          ),
-        };
-      } else {
-        final newState = Map<String, CartModel>.from(state);
-        newState.remove(productId);
-        state = newState;
-      }
+  void removeFromCart(String name) {
+    if (state.containsKey(name)) {
+      state = {
+        ...state,
+      }..remove(name);
     }
   }
-
-  void clearCart() {
-    state = {};
-  }
-
-  Map<String, CartModel> get cartItems => state;
 }
 
-final cartProvider = StateNotifierProvider<CartNotifier, Map<String, CartModel>>((ref) {
+final cartProvider = StateNotifierProvider<CartNotifier, Map<String, CartItem>>((ref) {
   return CartNotifier();
 });

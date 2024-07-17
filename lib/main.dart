@@ -25,14 +25,14 @@ void main() async {
 
   // Run the app
   runApp(
-    ProviderScope(
+    const ProviderScope(
       child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key, Key});
 
   @override
   Widget build(BuildContext context) {
