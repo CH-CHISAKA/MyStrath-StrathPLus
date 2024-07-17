@@ -16,7 +16,7 @@ class CartItem {
 }
 
 class CartScreen extends ConsumerStatefulWidget {
-  const CartScreen({super.key});
+  const CartScreen({Key? key}) : super(key: key);
 
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -26,11 +26,54 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final cartItems = ref.watch(cartProvider).values.toList();
-    
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
+        title: const Text(
+          'Cart',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 23,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 0.7,
+          ),
+        ),
         backgroundColor: const Color(0xff3A5DAE),
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                icon: Icon(Icons.shopping_cart),
+                onPressed: () {
+                  // Navigate to cart screen or any other action
+                },
+              ),
+              Positioned(
+                right: 8,
+                top: 8,
+                child: Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red,
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 16,
+                    minHeight: 16,
+                  ),
+                  child: Text(
+                    '${cartItems.length}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       body: ListView.builder(
         shrinkWrap: true,
@@ -40,7 +83,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           final cartItem = cartItems[index];
           return ListTile(
             title: Text(cartItem.name),
-            subtitle: Text('Price: ${cartItem.price}'),
+            subtitle: Text('Price: ${cartItem.price.toStringAsFixed(2)}'),
             trailing: Text('Quantity: ${cartItem.quantity}'),
           );
         },
